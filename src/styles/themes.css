@@ -1,0 +1,114 @@
+/* Base */
+.theme {
+  min-height: 100vh;
+  transition: background 1.5s ease, color 1s ease;
+}
+
+/* 🌸 SPRING — BEST */
+.theme.spring {
+  background: linear-gradient(135deg, #ecfdf5, #bbf7d0);
+  color: #065f46;
+}
+
+/* ☀️ SUMMER — GOOD */
+.theme.summer {
+  background: linear-gradient(135deg, #fefce8, #fde68a);
+  color: #78350f;
+}
+
+/* 🍁 AUTUMN — AVERAGE */
+.theme.autumn {
+  background: linear-gradient(135deg, #fff7ed, #fed7aa);
+  color: #7c2d12;
+}
+
+/* ❄️ WINTER — LOW */
+.theme.winter {
+  background: linear-gradient(135deg, #f8fafc, #e5e7eb);
+  color: #1f2933;
+}
+
+/* SOFT FLOATING EFFECT (OPTIONAL) */
+.theme.spring::after,
+.theme.summer::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255,255,255,0.3), transparent);
+  animation: drift 20s linear infinite;
+  pointer-events: none;
+}
+/* NAVBAR SEASON COLORS */
+.navbar.spring { background: rgba(236, 253, 245, 0.8); }
+.navbar.summer { background: rgba(254, 252, 232, 0.8); }
+.navbar.autumn { background: rgba(255, 247, 237, 0.85); }
+.navbar.winter { background: rgba(248, 250, 252, 0.9); }
+
+/* BOTTOM NAV */
+.bottomNav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: none;
+  justify-content: space-around;
+  padding: 10px 0;
+  backdrop-filter: blur(8px);
+}
+
+.bottomNav a {
+  font-size: 20px;
+  text-decoration: none;
+  color: inherit;
+}
+
+@media (max-width: 768px) {
+  .bottomNav {
+    display: flex;
+  }
+}
+
+
+@keyframes drift {
+  from { transform: translateY(0); }
+  to { transform: translateY(-200px); }
+}
+/* DARK MODE BASE */
+.theme.dark {
+  background: #0f172a; /* soft navy */
+  color: #e5e7eb;
+}
+
+/* SEASONAL DARK TINTS */
+.theme.spring.dark {
+  background: linear-gradient(135deg, #052e2b, #064e3b);
+}
+
+.theme.summer.dark {
+  background: linear-gradient(135deg, #3f3f1f, #713f12);
+}
+
+.theme.autumn.dark {
+  background: linear-gradient(135deg, #2a1f1b, #451a03);
+}
+
+.theme.winter.dark {
+  background: linear-gradient(135deg, #020617, #111827);
+}
+
+/* CARDS */
+.theme.dark .card,
+.theme.dark .popup,
+.theme.dark .audioBooth,
+.theme.dark .chat {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* INPUTS */
+.theme.dark input,
+.theme.dark textarea,
+.theme.dark select {
+  background: rgba(255,255,255,0.06);
+  color: #e5e7eb;
+  border: 1px solid rgba(255,255,255,0.1);
+}

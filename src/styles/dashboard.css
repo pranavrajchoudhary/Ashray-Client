@@ -1,0 +1,107 @@
+.dashboard {
+  text-align: center;
+  padding: 40px;
+}
+
+/* 🌱 PLANT */
+
+.plant {
+  position: relative;
+  width: 120px;
+  height: 200px;
+  margin: 40px auto;
+  transition: transform 1s ease;
+}
+
+.stem {
+  width: 10px;
+  height: 100px;
+  background: #16a34a;
+  margin: auto;
+  border-radius: 5px;
+}
+
+.leaf {
+  position: absolute;
+  width: 40px;
+  height: 20px;
+  background: #22c55e;
+  border-radius: 50%;
+  top: 40px;
+}
+
+.leaf.left {
+  left: -25px;
+  transform: rotate(-30deg);
+}
+
+.leaf.right {
+  right: -25px;
+  transform: rotate(30deg);
+}
+
+/* STATES */
+
+.plant.good {
+  transform: scale(1.1);
+}
+
+.plant.neutral {
+  transform: scale(1);
+}
+
+.plant.bad {
+  transform: scale(0.9) rotate(-3deg);
+}
+
+/* 📈 GRAPH */
+
+.graph {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  height: 120px;
+  margin-top: 30px;
+}
+
+.bar {
+  width: 20px;
+  background: linear-gradient(to top, #22c55e, #4ade80);
+  border-radius: 6px;
+  transition: height 0.8s ease;
+}
+
+/* TEXT */
+
+.stateText {
+  font-size: 16px;
+  color: #334155;
+  margin-top: 20px;
+}
+.plant.live {
+  transition: transform 1.5s ease-in-out;
+}
+
+/* subtle breathing animation */
+.plant.live::after {
+  content: "";
+  animation: breathe 4s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.refreshBtn {
+  margin-top: 10px;
+  padding: 8px 14px;
+  cursor: pointer;
+}

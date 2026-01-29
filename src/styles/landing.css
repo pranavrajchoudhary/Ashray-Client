@@ -1,0 +1,30 @@
+.landing {
+  text-align: center;
+}
+
+.hero {
+  padding: 80px 20px;
+  background: #1e293b;
+  color: white;
+}
+
+.hero button {
+  padding: 12px 20px;
+  font-size: 16px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 40px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  width: 200px;
+  border-radius: 8px;
+}

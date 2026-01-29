@@ -1,0 +1,10 @@
+.cards {
+  display: flex;
+  gap: 20px;
+}
+
+.card {
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 10px;
+}

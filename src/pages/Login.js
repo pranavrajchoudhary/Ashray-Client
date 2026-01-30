@@ -1,38 +1,45 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Login({ setToken }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-const API = process.env.REACT_APP_API_URL;
-const submit = async () => {
-  if (!email || !password) {
-    alert("Please enter email and password");
-    return;
-  }
+  const [loading, setLoading] = useState(false); // ✅ added
+  const navigate = useNavigate(); // ✅ added
 
-  try {
-    const res = await axios.post(`${API}/api/auth/login`, {
-      email,
-      password
-    });
+  const API = process.env.REACT_APP_API_URL;
 
-    localStorage.setItem("token", res.data.token);
-    setToken(res.data.token);
-  } catch (err) {
-    alert(
-      err.response?.data?.message || "Invalid email or password"
-    );
-  }
-};
+  const submit = async () => {
+    if (!email || !password) {
+      alert("Please enter email and password");
+      return;
+    }
 
+    try {
+      setLoading(true); // 🔒 lock button
+
+      const res = await axios.post(`${API}/api/auth/login`, {
+        email,
+        password
+      });
+
+      localStorage.setItem("token", res.data.token);
+      setToken(res.data.token);
+
+      navigate("/dashboard"); // ✅ redirect after login
+    } catch (err) {
+      alert(
+        err.response?.data?.message || "Invalid email or password"
+      );
+    } finally {
+      setLoading(false); // 🔓 unlock button (safe)
+    }
+  };
 
   return (
     <>
-      {/*
-        Bootstrap CDN required in index.html:
-        https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css
-      */}
+      {/* Bootstrap CDN required in index.html */}
 
       <style>{`
         .login-wrapper {
@@ -80,9 +87,14 @@ const submit = async () => {
           transition: transform 0.15s ease, box-shadow 0.15s ease;
         }
 
-        .login-btn:hover {
+        .login-btn:hover:not(:disabled) {
           transform: translateY(-1px);
           box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .login-btn:disabled {
+          opacity: 0.7;
+          cursor: not-allowed;
         }
       `}</style>
 
@@ -113,8 +125,9 @@ const submit = async () => {
           <button
             className="btn btn-success w-100 login-btn"
             onClick={submit}
+            disabled={loading}   // 🔒 lock
           >
-            Login
+            {loading ? "Logging in…" : "Login"}
           </button>
 
           <p className="text-center mt-3" style={{ fontSize: "13px" }}>

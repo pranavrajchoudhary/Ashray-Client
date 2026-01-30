@@ -6,27 +6,34 @@ export default function Register({ setToken }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false); // ✅ added
   const navigate = useNavigate();
- const API = process.env.REACT_APP_API_URL;
+  const API = process.env.REACT_APP_API_URL;
+
   const submit = async () => {
+    if (!name || !email || !password) {
+      alert("Please fill all fields");
+      return;
+    }
+
     try {
-      const res = await axios.post(
-         `${API}/api/auth/register`,
-        {
-          name,
-          email,
-          password
-        }
-      );
+      setLoading(true); // 🔒 lock button
+
+      const res = await axios.post(`${API}/api/auth/register`, {
+        name,
+        email,
+        password
+      });
 
       // ✅ AUTO LOGIN
       localStorage.setItem("token", res.data.token);
       setToken(res.data.token);
 
-      alert("Registration successful. Let’s begin.");
       navigate("/quiz"); // ✅ ONBOARDING QUIZ
     } catch (err) {
       alert("Registration failed");
+    } finally {
+      setLoading(false); // 🔓 safety unlock
     }
   };
 
@@ -80,9 +87,14 @@ export default function Register({ setToken }) {
           transition: transform 0.15s ease, box-shadow 0.15s ease;
         }
 
-        .register-btn:hover {
+        .register-btn:hover:not(:disabled) {
           transform: translateY(-1px);
           box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .register-btn:disabled {
+          opacity: 0.7;
+          cursor: not-allowed;
         }
       `}</style>
 
@@ -98,6 +110,7 @@ export default function Register({ setToken }) {
               className="form-control"
               placeholder="Full Name"
               onChange={e => setName(e.target.value)}
+              disabled={loading}
             />
           </div>
 
@@ -106,6 +119,7 @@ export default function Register({ setToken }) {
               className="form-control"
               placeholder="Email Address"
               onChange={e => setEmail(e.target.value)}
+              disabled={loading}
             />
           </div>
 
@@ -115,21 +129,23 @@ export default function Register({ setToken }) {
               className="form-control"
               placeholder="Password"
               onChange={e => setPassword(e.target.value)}
+              disabled={loading}
             />
           </div>
 
           <button
             className="btn btn-success w-100 register-btn"
             onClick={submit}
+            disabled={loading} // 🔒 lock
           >
-            Register
+            {loading ? "Registering…" : "Register"}
           </button>
 
           <p className="text-center mt-3" style={{ fontSize: "13px" }}>
             Already have an account?{" "}
             <span
               style={{ color: "#16a34a", cursor: "pointer" }}
-              onClick={() => navigate("/login")}
+              onClick={() => !loading && navigate("/login")}
             >
               Login
             </span>

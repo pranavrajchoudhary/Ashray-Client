@@ -7,10 +7,10 @@ export default function MoodTracker() {
     mood: "",
     digestion: ""
   });
-
+  const API = process.env.REACT_APP_API_URL;
   const submit = async () => {
     await axios.post(
-      "http://localhost:5000/api/mood",
+      `${API}/api/mood`,
       data,
       { headers: { Authorization: "Bearer " + localStorage.getItem("token") } }
     );

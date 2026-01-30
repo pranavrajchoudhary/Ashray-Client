@@ -4,9 +4,9 @@ import axios from "axios";
 export default function Vault() {
   const [items, setItems] = useState([]);
   const [form, setForm] = useState({ title: "", content: "" });
-
+const API = process.env.REACT_APP_API_URL;
   const load = async () => {
-    const res = await axios.get("http://localhost:5000/api/vault", {
+    const res = await axios.get(`${API}/api/vault`, {
       headers: { Authorization: "Bearer " + localStorage.getItem("token") }
     });
     setItems(res.data);
@@ -17,7 +17,7 @@ export default function Vault() {
   }, []);
 
   const submit = async () => {
-    await axios.post("http://localhost:5000/api/vault", form, {
+    await axios.post(`${API}/api/vault`, form, {
       headers: { Authorization: "Bearer " + localStorage.getItem("token") }
     });
     setForm({ title: "", content: "" });

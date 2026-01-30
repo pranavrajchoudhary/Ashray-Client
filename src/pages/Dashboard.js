@@ -6,13 +6,14 @@ export default function Dashboard() {
   const [health, setHealth] = useState(50); // 0–100
   const [moodLogs, setMoodLogs] = useState([]);
   const { setTheme } = useTheme();
+      const API = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     fetchMood();
   }, []);
 
   const fetchMood = async () => {
-    const res = await axios.get("http://localhost:5000/api/mood", {
+    const res = await axios.get(`${API}/api/mood`, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token")
       }

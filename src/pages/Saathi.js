@@ -6,7 +6,7 @@ export default function Saathi() {
   const [input, setInput] = useState("");
   const [audioEnabled, setAudioEnabled] = useState(false);
   const [started, setStarted] = useState(false);
-
+ const API = process.env.REACT_APP_API_URL;
   const introText =
     "Hello, I’m Ashray. I’m here to listen — not to judge or diagnose. You can speak freely.";
 
@@ -38,7 +38,7 @@ export default function Saathi() {
     setInput("");
 
     const res = await axios.post(
-      "http://localhost:5000/api/ai/chat",
+      `${API}/api/ai/chat`,
       { message: input },
       {
         headers: {

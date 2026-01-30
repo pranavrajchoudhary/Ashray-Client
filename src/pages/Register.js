@@ -7,11 +7,11 @@ export default function Register({ setToken }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
+ const API = process.env.REACT_APP_API_URL;
   const submit = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/auth/register",
+         `${API}/api/auth/register`,
         {
           name,
           email,

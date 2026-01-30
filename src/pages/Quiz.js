@@ -14,10 +14,10 @@ const questions = [
 
 export default function Quiz() {
   const [answers, setAnswers] = useState([]);
-
+  const API = process.env.REACT_APP_API_URL;
   const submit = async () => {
     await axios.post(
-      "http://localhost:5000/api/quiz",
+       `${API}/api/quiz`,
       { answers },
       { headers: { Authorization: "Bearer " + localStorage.getItem("token") } }
     );

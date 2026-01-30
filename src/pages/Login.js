@@ -4,7 +4,7 @@ import axios from "axios";
 export default function Login({ setToken }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+const API = process.env.REACT_APP_API_URL;
 const submit = async () => {
   if (!email || !password) {
     alert("Please enter email and password");
@@ -12,7 +12,7 @@ const submit = async () => {
   }
 
   try {
-    const res = await axios.post("http://localhost:5000/api/auth/login", {
+    const res = await axios.post(`${API}/api/auth/login`, {
       email,
       password
     });

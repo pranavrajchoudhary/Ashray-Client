@@ -40,7 +40,7 @@ export default function Quiz() {
 
     // 🌱 smooth delay before redirect
     setTimeout(() => {
-      navigate("/dashboard");
+      navigate("/login");
     }, 1000);
   };
 
